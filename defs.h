@@ -9,6 +9,8 @@ typedef unsigned long long U64;
 #define BOARD_NUMBER 120
 // array for square board
 
+
+
 // enum: lists of constants
 enum { EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK };
 // chess pieces w for white and b for black
@@ -35,7 +37,27 @@ enum {
 };
 // grid of 8 x 8
 
+
+enum {WK_castling =1 , WQ_castling=2, BK_castling=4, BQ_castling=8};
+// 0000 4 bits represnets the castling permisons
+
+
+
 enum { FALSE, TRUE };
+
+typedef struct{
+
+  int move;
+  int castlingPermission;
+  int enPas;
+  int fiftyMove;
+  U64 postionKey;
+
+  // all these will be stored before the move is made
+
+
+}Undo_struct;
+
 
 typedef struct{
 
@@ -56,8 +78,11 @@ typedef struct{
 
   int ply;
   int ply1;
+  // ply1 is for history of player move
 
   // for checking half moves(50 move rule)
+
+  int castlingPermission;
 
   U64 postionKey;
   // for each position
@@ -77,7 +102,14 @@ int minorPieces[3];
 
 // all 3 bcoz of the color
 
+Undo_struct history[2048];
+// 2048 coz number of moves in a game is always less than 2048
+
+
 } Board_struct;
+
+
+
 
 
 
