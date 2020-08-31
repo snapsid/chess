@@ -41,7 +41,41 @@ typedef struct{
 
   int pices[BOARD_NUMBER];
   U64 pawns[3];
-  // white black and both
+  // white black or both
+
+  int kingSquare[2];
+
+  int side;
+  // which side to move
+
+  int enPas;
+  // for checking en passant rule
+
+  int fiftyMove;
+  // for checking 50 move rule
+
+  int ply;
+  int ply1;
+
+  // for checking half moves(50 move rule)
+
+  U64 postionKey;
+  // for each position
+
+
+int picesNumber[13];
+// 13 bcoz including empty
+
+int bigPieces[3];
+// all other than the pawns
+
+int majorPieces[3];
+// rooks and queen
+
+int minorPieces[3];
+// bishops and knight
+
+// all 3 bcoz of the color
 
 } Board_struct;
 
