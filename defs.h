@@ -15,7 +15,7 @@ typedef unsigned long long U64;
 enum { EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK };
 // chess pieces w for white and b for black
 
-enum { COLUMN_A, COLUMN_B, COLUMN_C, COLUMN_D, COLUMN_E, COLUMN_F, COLUMN_G, COLUMN_NONE };
+enum { COLUMN_A, COLUMN_B, COLUMN_C, COLUMN_D, COLUMN_E, COLUMN_F, COLUMN_G, COLUMN_H, COLUMN_NONE };
 // column name
 
 enum { ROW_1, ROW_2, ROW_3, ROW_4, ROW_5, ROW_6, ROW_7, ROW_8, ROW_NONE };
@@ -40,6 +40,7 @@ enum {
 
 enum {WK_castling =1 , WQ_castling=2, BK_castling=4, BQ_castling=8};
 // 0000 4 bits represnets the castling permisons
+
 
 
 
@@ -109,8 +110,21 @@ Undo_struct history[2048];
 } Board_struct;
 
 
+#define FR2SQ(c,r) ( (21 + (c) ) + ( (r) * 10 ) )
+// macros
+// c for column and r for rows
+
+// its use is to jab hum 64 array ke according indext denge to vo 120 ke according return kre
 
 
+extern int Sq120ToSq64[BOARD_NUMBER];
+extern int Sq64ToSq120[64];
+// globals
+
+
+
+extern void allInit();
+// function
 
 
 #endif
