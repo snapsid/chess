@@ -4,7 +4,11 @@
 
 int main()
 {
-  printf("hello chess");
+  printf("\n");
+  printf("\n");
+  printf("-------------welcome to .? chess-----------------");
+  printf("\n");
+  printf("\n");
   allInit();
 
 

@@ -8,8 +8,8 @@ int Sq64ToSq120[64];
 void InitSq120To64() {
 
 	int index = 0;
-	int file = COLUMN_A;
-	int rank = ROW_1;
+	int column = COLUMN_A;
+	int row = ROW_1;
 	int sq = A1;
 	int sq64 = 0;
 	for(index = 0; index < BOARD_NUMBER; ++index) {
@@ -20,9 +20,9 @@ void InitSq120To64() {
 		Sq64ToSq120[index] = 120;
 	}
 
-	for(rank = ROW_1; rank <= ROW_8; ++rank) {
-		for(file = COLUMN_A; file <= COLUMN_H; ++file) {
-			sq = FR2SQ(file,rank);
+	for(row = ROW_1; row <= ROW_8; ++row) {
+		for(column = COLUMN_A; column <= COLUMN_H; ++column) {
+			sq = FR2SQ(column,row);
 			Sq64ToSq120[sq64] = sq;
 			Sq120ToSq64[sq] = sq64;
 			sq64++;

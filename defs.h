@@ -135,10 +135,14 @@ int pieceslist[13][10];
 
 
 #define FR2SQ(c,r) ( (21 + (c) ) + ( (r) * 10 ) )
-// macros
 // c for column and r for rows
-
 // its use is to jab hum 64 array ke according indext denge to vo 120 ke according return kre
+#define SQ64(sq120) Sq120ToSq64[sq120]
+
+
+
+// macros
+
 
 
 extern int Sq120ToSq64[BOARD_NUMBER];
