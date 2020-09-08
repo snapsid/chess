@@ -7,6 +7,7 @@ int main()
   printf("hello chess");
   allInit();
 
+
   int index;
 
   for(index=0; index< BOARD_NUMBER; ++index)

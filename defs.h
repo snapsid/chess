@@ -1,6 +1,28 @@
 #ifndef DEFS_H
 #define DEFS_H
 
+#include <stdlib.h>
+
+
+#define DEBUG
+
+#ifndef DEBUG
+#define ASSERT(n)
+#else
+#define ASSERT(n) \
+if(!(n)) { \
+printf("%s - Failed",#n); \
+printf("On %s ",__DATE__); \
+printf("At %s ",__TIME__); \
+printf("In File %s ",__FILE__); \
+printf("At Line %d\n",__LINE__); \
+exit(1);}
+#endif
+
+// for debugging no use
+
+
+
 typedef unsigned long long U64;
 
 #define NAME "Chess dot questionmark"
@@ -106,6 +128,8 @@ int minorPieces[3];
 Undo_struct history[2048];
 // 2048 coz number of moves in a game is always less than 2048
 
+int pieceslist[13][10];
+// piece list
 
 } Board_struct;
 
