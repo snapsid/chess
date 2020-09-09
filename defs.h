@@ -41,7 +41,7 @@ enum { COLUMN_A, COLUMN_B, COLUMN_C, COLUMN_D, COLUMN_E, COLUMN_F, COLUMN_G, COL
 // column name
 
 enum { ROW_1, ROW_2, ROW_3, ROW_4, ROW_5, ROW_6, ROW_7, ROW_8, ROW_NONE };
-// row name
+// row name or rank
 
 enum { WHITE, BLACK, BOTH };
 // colors for board
@@ -152,7 +152,15 @@ extern int Sq64ToSq120[64];
 
 
 extern void allInit();
-// function
+// inside init.c
+
+extern void printBitB(U64 bb);
+// inside bitboard.c
+
+// functions
+
+
+
 
 
 #endif
