@@ -50,40 +50,56 @@ int main()
   // printBitB(playBitBoard);
 
 
-  playBitBoard |= (1ULL << SQ64(D2));
-  playBitBoard |= (1ULL << SQ64(D3));
-  playBitBoard |= (1ULL << SQ64(D4));
-// adding a bit to D2 postion
+//   playBitBoard |= (1ULL << SQ64(D2));
+//   playBitBoard |= (1ULL << SQ64(D3));
+//   playBitBoard |= (1ULL << SQ64(D4));
+// // adding a bit to D2 postion
+//
+//   printBitB(playBitBoard);
+//
+//   // playBitBoard |= (1ULL << SQ64(G2));
+//   // printBitB(playBitBoard);
+//
+//   int count = CNT(playBitBoard);
+//   printf("Count: %d\n", count);
+//   printf("\n");
+//
+//   // to print the number of X in bitboard
+//
+//   int index = POP(&playBitBoard);
+//   printf("index %d", index);
+//   printf("\n");
+//   printBitB(playBitBoard);
+//   count = CNT(playBitBoard);
+//   printf("\n");
+//   printf("Count: %d\n", count);
+//
+//   int a=0;
+//
+//   while (playBitBoard){
+//
+//     a=POP(&playBitBoard);
+//     printf("popped %d \n", a);
+//     printBitB(playBitBoard);
+//
+//
+//   }
 
+  int index= 0;
+
+
+  // for(index=0 ; index<64; index++)
+	// {
+  //   printf("Index %d \n", index);
+	// 	printBitB(ClearMask[index]);
+	// 	printf("\n");
+	// }
+
+  SETBIT(playBitBoard, 61);
   printBitB(playBitBoard);
 
-  // playBitBoard |= (1ULL << SQ64(G2));
-  // printBitB(playBitBoard);
-
-  int count = CNT(playBitBoard);
-  printf("Count: %d\n", count);
-  printf("\n");
-
-  // to print the number of X in bitboard
-
-  int index = POP(&playBitBoard);
-  printf("index %d", index);
-  printf("\n");
+  CLRBIT(playBitBoard, 61);
   printBitB(playBitBoard);
-  count = CNT(playBitBoard);
-  printf("\n");
-  printf("Count: %d\n", count);
-
-  int a=0;
-
-  while (playBitBoard){
-
-    a=POP(&playBitBoard);
-    printf("popped %d \n", a);
-    printBitB(playBitBoard);
-
-
-  }
 
 
 
