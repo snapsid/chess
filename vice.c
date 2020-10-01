@@ -38,16 +38,52 @@ int main()
 
 
 
+
+
+
+
+
+
+
   U64 playBitBoard = 0ULL;
 
-  printBitB(playBitBoard);
+  // printBitB(playBitBoard);
 
 
   playBitBoard |= (1ULL << SQ64(D2));
+  playBitBoard |= (1ULL << SQ64(D3));
+  playBitBoard |= (1ULL << SQ64(D4));
+// adding a bit to D2 postion
+
   printBitB(playBitBoard);
 
-  playBitBoard |= (1ULL << SQ64(G2));
+  // playBitBoard |= (1ULL << SQ64(G2));
+  // printBitB(playBitBoard);
+
+  int count = CNT(playBitBoard);
+  printf("Count: %d\n", count);
+  printf("\n");
+
+  // to print the number of X in bitboard
+
+  int index = POP(&playBitBoard);
+  printf("index %d", index);
+  printf("\n");
   printBitB(playBitBoard);
+  count = CNT(playBitBoard);
+  printf("\n");
+  printf("Count: %d\n", count);
+
+  int a=0;
+
+  while (playBitBoard){
+
+    a=POP(&playBitBoard);
+    printf("popped %d \n", a);
+    printBitB(playBitBoard);
+
+
+  }
 
 
 

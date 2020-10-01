@@ -138,7 +138,8 @@ int pieceslist[13][10];
 // c for column and r for rows
 // its use is to jab hum 64 array ke according indext denge to vo 120 ke according return kre
 #define SQ64(sq120) Sq120ToSq64[sq120]
-
+#define POP(b) PopBit(b)
+#define CNT(b) CountBits(b)
 
 
 // macros
@@ -155,6 +156,8 @@ extern void allInit();
 // inside init.c
 
 extern void printBitB(U64 bb);
+extern int PopBit(U64 *bb);
+extern int CountBits(U64 b);
 // inside bitboard.c
 
 // functions
