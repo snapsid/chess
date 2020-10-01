@@ -152,6 +152,9 @@ extern int Sq64ToSq120[64];
 
 extern U64 SetMask[64];
 extern U64 ClearMask[64];
+extern U64 PieceKeys[13][120];
+extern U64 SideKeys;
+extern U64 CastleKeys[16];
 // globals
 
 
@@ -167,7 +170,8 @@ extern int CountBits(U64 b);
 // functions
 
 
-
+extern U64 GeneratePosKey(const Board_struct *pos);
+// hashkeys.c
 
 
 #endif

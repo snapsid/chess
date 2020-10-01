@@ -85,22 +85,37 @@ int main()
 //
 //   }
 
-  int index= 0;
+// printing bits
+
+  // int index= 0;
+  //
+  //
+  // // for(index=0 ; index<64; index++)
+	// // {
+  // //   printf("Index %d \n", index);
+	// // 	printBitB(ClearMask[index]);
+	// // 	printf("\n");
+	// // }
+  //
+  // SETBIT(playBitBoard, 61);
+  // printBitB(playBitBoard);
+  //
+  // CLRBIT(playBitBoard, 61);
+  // printBitB(playBitBoard);
 
 
-  // for(index=0 ; index<64; index++)
-	// {
-  //   printf("Index %d \n", index);
-	// 	printBitB(ClearMask[index]);
-	// 	printf("\n");
-	// }
-
-  SETBIT(playBitBoard, 61);
-  printBitB(playBitBoard);
-
-  CLRBIT(playBitBoard, 61);
-  printBitB(playBitBoard);
-
+  // int pieceOne = rand();
+  // int pieceTwo = rand();
+  // int pieceThree = rand();
+  // int pieceFour = rand();
+  //
+  // printf("pieceOne: %X\n", pieceOne);
+  // printf("pieceTwo: %X\n", pieceTwo);
+  // printf("pieceThree: %X\n", pieceThree);
+  // printf("pieceFour: %X\n", pieceFour);
+  //
+  // int key =  pieceOne ^ pieceTwo ^ pieceThree ^ pieceFour;
+  // printf("key: %X", key);
 
 
 
