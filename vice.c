@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<stdlib.h>
 #include "defs.h"
 
 
@@ -116,6 +117,16 @@ int main()
   //
   // int key =  pieceOne ^ pieceTwo ^ pieceThree ^ pieceFour;
   // printf("key: %X", key);
+
+  #define FEN1 "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
+
+  Board_struct board[1];
+
+  parse_FEN(START_FEN, board);
+  PrintingBoard(board);
+
+  parse_FEN(FEN1, board);
+  PrintingBoard(board);
 
 
 

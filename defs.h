@@ -31,6 +31,8 @@ typedef unsigned long long U64;
 #define BOARD_NUMBER 120
 // array for square board
 
+#define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/pppppppp/RNBQKBNR w KQkq - 0 1"
+
 
 
 // enum: lists of constants
@@ -60,7 +62,7 @@ enum {
 // grid of 8 x 8
 
 
-enum {WK_castling =1 , WQ_castling=2, BK_castling=4, BQ_castling=8};
+enum {WKCA =1 , WQCA=2, BKCA=4, BQCA=8};
 // 0000 4 bits represnets the castling permisons
 
 
@@ -156,6 +158,14 @@ extern U64 ClearMask[64];
 extern U64 PieceKeys[13][120];
 extern U64 SideKeys;
 extern U64 CastleKeys[16];
+
+extern char PieceCharacter[];
+extern char SideCharacter[];
+extern char RowCharacter[];
+extern char ColumnCharacter[];
+
+// printing board characters
+
 // globals
 
 
@@ -176,6 +186,8 @@ extern U64 GeneratePosKey(const Board_struct *pos);
 
 
 extern void resetBoard(Board_struct *pos);
+extern void parse_FEN(char *fen, Board_struct *pos);
+extern void PrintingBoard(const Board_struct *pos);
 // c_board.c
 
 

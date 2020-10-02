@@ -10,7 +10,7 @@ U64 GeneratePosKey(const Board_struct *pos) {
 	// pieces
 	for(sq = 0; sq < BOARD_NUMBER; ++sq) {
 		piece = pos->pices[sq];
-		if(piece!=NO_SQ && piece!=EMPTY) {
+		if(piece!=NO_SQ && piece!=EMPTY && piece != OFFBOARD) {
 			ASSERT(piece>=wP && piece<=bK);
 			finalKey ^= PieceKeys[piece][sq];
 		}
