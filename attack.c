@@ -39,6 +39,22 @@ int SqAttacked(const int sq, const int side, const Board_struct *pos) {
 
 
 
+  // rooks, queens
+  for(index = 0; index < 4; ++index) {
+    dir = RkDir[index];
+    t_sq = sq + dir;
+    pce = pos->pices[t_sq];
+    while(pce != OFFBOARD) {
+      if(pce != EMPTY) {
+        if(IsRQ(pce) && PieceColour[pce] == side) {
+          return TRUE;
+        }
+        break;
+      }
+      t_sq += dir;
+      pce = pos->pieces[t_sq];
+    }
+  }
 
 
 
