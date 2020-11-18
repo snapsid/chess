@@ -3,6 +3,94 @@
 
 
 
+int CheckBoard(const Board_struct *pos) {
+
+	int t_pceNum[13] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int t_bigPce[2] = { 0, 0};
+	int t_majPce[2] = { 0, 0};
+	int t_minPce[2] = { 0, 0};
+	int t_material[2] = { 0, 0};
+
+	int sq64,t_piece,t_pce_num,sq120,colour,pcount;
+
+	U64 t_pawns[3] = {0ULL, 0ULL, 0ULL};
+
+	t_pawns[WHITE] = pos->pawns[WHITE];
+	t_pawns[BLACK] = pos->pawns[BLACK];
+	t_pawns[BOTH] = pos->pawns[BOTH];
+
+	// check piece lists
+	for(t_piece = wP; t_piece <= bK; ++t_piece) {
+		for(t_pce_num = 0; t_pce_num < pos->picesNumber[t_piece]; ++t_pce_num) {
+			sq120 = pos->pieceslist[t_piece][t_pce_num];
+			ASSERT(pos->pices[sq120]==t_piece);
+		}
+	}
+
+	// check piece count and other counters
+	for(sq64 = 0; sq64 < 64; ++sq64) {
+		sq120 = SQ120(sq64);
+		t_piece = pos->pices[sq120];
+		t_pceNum[t_piece]++;
+		colour = PieceColour[t_piece];
+		if( PieceBig[t_piece] == TRUE) t_bigPce[colour]++;
+		if( PieceMinor[t_piece] == TRUE) t_minPce[colour]++;
+		if( PieceMajor[t_piece] == TRUE) t_majPce[colour]++;
+
+		t_material[colour] += PieceValue[t_piece];
+	}
+
+	for(t_piece = wP; t_piece <= bK; ++t_piece) {
+		ASSERT(t_pceNum[t_piece]==pos->picesNumber[t_piece]);
+	}
+
+	// check bitboards count
+	pcount = CNT(t_pawns[WHITE]);
+	ASSERT(pcount == pos->picesNumber[wP]);
+	pcount = CNT(t_pawns[BLACK]);
+	ASSERT(pcount == pos->picesNumber[bP]);
+	pcount = CNT(t_pawns[BOTH]);
+	ASSERT(pcount == (pos->picesNumber[bP] + pos->picesNumber[wP]));
+
+	// check bitboards squares
+	while(t_pawns[WHITE]) {
+		sq64 = POP(&t_pawns[WHITE]);
+		ASSERT(pos->pices[SQ120(sq64)] == wP);
+	}
+
+	while(t_pawns[BLACK]) {
+		sq64 = POP(&t_pawns[BLACK]);
+		ASSERT(pos->pices[SQ120(sq64)] == bP);
+	}
+
+	while(t_pawns[BOTH]) {
+		sq64 = POP(&t_pawns[BOTH]);
+		ASSERT( (pos->pices[SQ120(sq64)] == bP) || (pos->pices[SQ120(sq64)] == wP) );
+	}
+
+	ASSERT(t_material[WHITE]==pos->material[WHITE] && t_material[BLACK]==pos->material[BLACK]);
+	ASSERT(t_minPce[WHITE]==pos->minorPieces[WHITE] && t_minPce[BLACK]==pos->minorPieces[BLACK]);
+	ASSERT(t_majPce[WHITE]==pos->majorPieces[WHITE] && t_majPce[BLACK]==pos->majorPieces[BLACK]);
+	ASSERT(t_bigPce[WHITE]==pos->bigPieces[WHITE] && t_bigPce[BLACK]==pos->bigPieces[BLACK]);
+
+	ASSERT(pos->side==WHITE || pos->side==BLACK);
+	ASSERT(GeneratePosKey(pos)==pos->postionKey);
+
+	ASSERT(pos->enPas==NO_SQ || ( RowBoard[pos->enPas]==ROW_6 && pos->side == WHITE)
+		 || ( RowBoard[pos->enPas]==ROW_3 && pos->side == BLACK));
+
+	ASSERT(pos->pices[pos->kingSquare[WHITE]] == wK);
+	ASSERT(pos->pices[pos->kingSquare[BLACK]] == bK);
+
+	return TRUE;
+}
+
+
+
+
+
+
+
 void UpdateListsMaterial(Board_struct *pos) {
 
 	int piece,sq,index,colour;
@@ -28,6 +116,17 @@ void UpdateListsMaterial(Board_struct *pos) {
 
 			if(piece==wK) pos->kingSquare[WHITE] = sq;
 			if(piece==bK) pos->kingSquare[BLACK] = sq;
+
+			if(piece==wP) {
+
+				SETBIT(pos->pawns[WHITE],SQ64(sq));
+				SETBIT(pos->pawns[BOTH],SQ64(sq));
+			}
+      else if(piece==bP) {
+				SETBIT(pos->pawns[BLACK],SQ64(sq));
+				SETBIT(pos->pawns[BOTH],SQ64(sq));
+			}
+
 		}
 	}
 
@@ -110,6 +209,7 @@ void parse_FEN(char *fen, Board_struct *pos)
 			column++;
     }
 		fen++;
+
 }
 
 ASSERT(*fen == 'w' || *fen == 'b');
@@ -156,6 +256,7 @@ if (*fen != '-') {
     }
 
     pos->postionKey = GeneratePosKey(pos);
+		UpdateListsMaterial(pos);
 
 }
 

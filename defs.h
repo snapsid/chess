@@ -203,6 +203,7 @@ extern void resetBoard(Board_struct *pos);
 extern void parse_FEN(char *fen, Board_struct *pos);
 extern void PrintingBoard(const Board_struct *pos);
 extern void UpdateListsMaterial(Board_struct *pos);
+extern int CheckBoard(const Board_struct *pos);
 // c_board.c
 
 
