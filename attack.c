@@ -27,6 +27,17 @@ int SqAttacked(const int sq, const int side, const Board_struct *pos) {
 
 
 
+  // for knights
+	for(index = 0; index < 8; ++index) {
+		pce = pos->pices[sq + KnDir[index]];
+		if(IsKn(pce) && PieceColour[pce]==side) {
+			return TRUE;
+		}
+	}
+  // it will check if from that square - 8 is there any knight and also if its color is same as the move color
+  // it wil than return true
+
+
 
 
 
