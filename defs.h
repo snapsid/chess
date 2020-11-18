@@ -148,6 +148,16 @@ int pieceslist[13][10];
 #define CLRBIT(bb,sq) ((bb) &= ClearMask[(sq)])
 #define SETBIT(bb,sq) ((bb) |= SetMask[(sq)])
 
+
+
+#define IsBQ(p) (PieceISBishopQueen[(p)])
+#define IsRQ(p) (PieceISRookQueen[(p)])
+#define IsKn(p) (PieceISKnight[(p)])
+#define IsKi(p) (PieceISKing[(p)])
+
+// to check type of pices
+
+
 // macros
 
 
@@ -179,6 +189,14 @@ extern int PieceColour[13];
 
 extern int ColumnBoard[BOARD_NUMBER];
 extern int RowBoard[BOARD_NUMBER];
+// column and row array
+
+
+extern int PieceISKnight[13];
+extern int PieceISKing[13];
+extern int PieceISRookQueen[13];
+extern int PieceISBishopQueen[13];
+// to return which type of piece
 
 // globals
 

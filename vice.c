@@ -142,10 +142,10 @@ int main()
   printBitB(board->pawns[BOTH]);
 
 
-  ASSERT(CheckBoard(board));
-	printf("\nForced asserts...\n");
-	board->postionKey ^= SideKeys;
-	ASSERT(CheckBoard(board));
+  // ASSERT(CheckBoard(board));
+	// printf("\nForced asserts...\n");
+	// board->postionKey ^= SideKeys;
+	// ASSERT(CheckBoard(board));
 
 
 
