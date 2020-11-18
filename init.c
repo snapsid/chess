@@ -1,5 +1,6 @@
 #include "defs.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #define RAND_64 (	(U64)rand() | \
 					(U64)rand() << 15 | \
@@ -23,6 +24,58 @@ U64 PieceKeys[13][120];
 U64 SideKeys;
 U64 CastleKeys[16];
 // 0 0 0 0 king queen of both color
+
+
+int ColumnBoard[BOARD_NUMBER];
+int RowBoard[BOARD_NUMBER];
+// to print the row column number
+
+
+
+void InitFilesRanksBrd() {
+
+	int index = 0;
+	int col = COLUMN_A;
+	int row = ROW_1;
+	int sq = A1;
+	int sq64 = 0;
+
+	for(index = 0; index < BOARD_NUMBER; ++index) {
+		ColumnBoard[index] = OFFBOARD;
+		RowBoard[index] = OFFBOARD;
+	}
+
+	for(row = ROW_1; row <= ROW_8; ++row) {
+		for(col = COLUMN_A; col <= COLUMN_H; ++col) {
+			sq = FR2SQ(col, row);
+			ColumnBoard[sq] = col;
+			RowBoard[sq] = row;
+		}
+	}
+
+
+	printf("\nColumn board\n");
+	for(index = 0; index < BOARD_NUMBER; ++index) {
+		if(index%10==0 && index!=0)
+		{
+			printf("\n");
+		}
+		printf("%4d", ColumnBoard[index]);
+	}
+
+	printf("\nRow board\n");
+	for(index = 0; index < BOARD_NUMBER; ++index) {
+		if(index%10==0 && index!=0)
+		{
+			printf("\n");
+		}
+		printf("%4d", RowBoard[index]);
+	}
+}
+
+
+
+
 
 void InitHashKeys() {
 
@@ -91,6 +144,7 @@ void allInit(){
   InitSq120To64();
 	InitBitMask();
 	InitHashKeys();
+	InitFilesRanksBrd();
 
 }
 

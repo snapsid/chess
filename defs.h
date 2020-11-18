@@ -175,6 +175,11 @@ extern int PieceColour[13];
 
 // printing board characters
 
+
+
+extern int ColumnBoard[BOARD_NUMBER];
+extern int RowBoard[BOARD_NUMBER];
+
 // globals
 
 
