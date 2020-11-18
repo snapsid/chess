@@ -84,4 +84,16 @@ for(index = 0; index < 4; ++index) {
 
 
 
+
+// for kings
+for(index = 0; index < 8; ++index) {
+  pce = pos->pices[sq + KiDir[index]];
+  if(IsKi(pce) && PieceColour[pce]==side) {
+    return TRUE;
+  }
+}
+
+return FALSE;
+
+
 }
