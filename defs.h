@@ -225,4 +225,9 @@ extern int CheckBoard(const Board_struct *pos);
 // c_board.c
 
 
+
+extern int SqAttacked(const int sq, const int side, const Board_struct *pos);
+// attack.c
+
+
 #endif

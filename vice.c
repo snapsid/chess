@@ -3,6 +3,46 @@
 #include "defs.h"
 
 
+
+
+
+#define FEN11 "8/3q1p2/8/5P2/4Q3/8/8/8 w - - 0 2 "
+
+// to check the attacking position available 
+void ShowSqAtBySide(const int side, const Board_struct *pos) {
+
+	int row = 0;
+	int column = 0;
+	int sq = 0;
+
+	printf("\n\nSquares attacked by:%c\n",SideCharacter[side]);
+	for(row = ROW_8; row >= ROW_1; --row) {
+		for(column = COLUMN_A; column <= COLUMN_H; ++column) {
+			sq = FR2SQ(column,row);
+			if(SqAttacked(sq,side,pos)==TRUE) {
+				printf("X");
+			} else {
+				printf("-");
+			}
+
+		}
+		printf("\n");
+	}
+    printf("\n\n");
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 int main()
 {
   printf("\n");
@@ -146,6 +186,21 @@ int main()
 	// printf("\nForced asserts...\n");
 	// board->postionKey ^= SideKeys;
 	// ASSERT(CheckBoard(board));
+
+
+// to check attack function
+
+// S_BOARD board[1];
+
+parse_FEN(FEN11, board);
+PrintingBoard(board);
+//ASSERT(CheckBoard(board));
+
+printf("\n\nWhite Attacking:\n");
+ShowSqAtBySide(WHITE,board);
+
+printf("\n\nBlack Attacking:\n");
+ShowSqAtBySide(BLACK,board);
 
 
 
