@@ -52,9 +52,13 @@ int SqAttacked(const int sq, const int side, const Board_struct *pos) {
         break;
       }
       t_sq += dir;
-      pce = pos->pieces[t_sq];
+      pce = pos->pices[t_sq];
     }
   }
+// here we will be looking for direction i.e square ke ek side ko pakad lia than uske next square par check kia
+// if vha par koi piece hai i.e not empty aur its color is rook or queen and also its color is same as turn
+// than return true and break the loop
+// or increment the direction
 
 
 
