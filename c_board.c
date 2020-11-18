@@ -1,6 +1,41 @@
 #include <stdio.h>
 #include "defs.h"
 
+
+
+void UpdateListsMaterial(Board_struct *pos) {
+
+	int piece,sq,index,colour;
+
+	for(index = 0; index < BOARD_NUMBER; ++index) {
+		sq = index;
+		piece = pos->pices[index];
+		if(piece!=OFFBOARD && piece!= EMPTY) {
+			colour = PieceColour[piece];
+
+		    if( PieceBig[piece] == TRUE) pos->bigPieces[colour]++;
+		    if( PieceMinor[piece] == TRUE) pos->minorPieces[colour]++;
+		    if( PieceMajor[piece] == TRUE) pos->majorPieces[colour]++;
+
+			pos->material[colour] += PieceValue[piece];
+
+			// piece list
+			// pList[wP][0] = a1;
+			// pList[wP][1] = a2;
+
+			pos->pieceslist[piece][pos->picesNumber[piece]] = sq;
+			pos->picesNumber[piece]++;
+
+			if(piece==wK) pos->kingSquare[WHITE] = sq;
+			if(piece==bK) pos->kingSquare[BLACK] = sq;
+		}
+	}
+
+}
+
+
+
+
 void parse_FEN(char *fen, Board_struct *pos)
 {
 

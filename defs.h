@@ -120,10 +120,12 @@ int bigPieces[3];
 // all other than the pawns
 
 int majorPieces[3];
-// rooks and queen
+// rooks and queen and king
 
 int minorPieces[3];
 // bishops and knight
+
+int material[2];
 
 // all 3 bcoz of the color
 
@@ -164,6 +166,13 @@ extern char SideCharacter[];
 extern char RowCharacter[];
 extern char ColumnCharacter[];
 
+
+extern int PieceBig[13];
+extern int PieceMajor[13];
+extern int PieceMinor[13];
+extern int PieceValue[13];
+extern int PieceColour[13];
+
 // printing board characters
 
 // globals
@@ -188,6 +197,7 @@ extern U64 GeneratePosKey(const Board_struct *pos);
 extern void resetBoard(Board_struct *pos);
 extern void parse_FEN(char *fen, Board_struct *pos);
 extern void PrintingBoard(const Board_struct *pos);
+extern void UpdateListsMaterial(Board_struct *pos);
 // c_board.c
 
 
