@@ -39,7 +39,7 @@ int SqAttacked(const int sq, const int side, const Board_struct *pos) {
 
 
 
-  // rooks, queens
+  // for rooks and queens
   for(index = 0; index < 4; ++index) {
     dir = RkDir[index];
     t_sq = sq + dir;
@@ -58,7 +58,29 @@ int SqAttacked(const int sq, const int side, const Board_struct *pos) {
 // here we will be looking for direction i.e square ke ek side ko pakad lia than uske next square par check kia
 // if vha par koi piece hai i.e not empty aur its color is rook or queen and also its color is same as turn
 // than return true and break the loop
-// or increment the direction
+// or increment the direction and loops continues
+
+
+
+
+
+// for bishops and queens
+for(index = 0; index < 4; ++index) {
+  dir = BiDir[index];
+  t_sq = sq + dir;
+  pce = pos->pices[t_sq];
+  while(pce != OFFBOARD) {
+    if(pce != EMPTY) {
+      if(IsBQ(pce) && PieceColour[pce] == side) {
+        return TRUE;
+      }
+      break;
+    }
+    t_sq += dir;
+    pce = pos->pices[t_sq];
+  }
+}
+// same logic as rooks and queen
 
 
 
