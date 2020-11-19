@@ -8,7 +8,7 @@
 
 #define FEN11 "8/3q1p2/8/5P2/4Q3/8/8/8 w - - 0 2 "
 
-// to check the attacking position available 
+// to check the attacking position available
 void ShowSqAtBySide(const int side, const Board_struct *pos) {
 
 	int row = 0;
@@ -202,6 +202,20 @@ ShowSqAtBySide(WHITE,board);
 printf("\n\nBlack Attacking:\n");
 ShowSqAtBySide(BLACK,board);
 
+
+int move = 0;
+int from = A2; int to = H7;
+int cap = wR; int prom = wR;
+
+move = ( ( from ) | ( to << 7 ) | ( cap << 14 ) | ( prom << 20) );
+
+printf("from:%d to:%d cap:%d prom:%d\n",
+	FROMSQ(move),TOSQ(move),CAPTURED(move),
+	PROMOTED(move));
+
+printf("Algebraic from:%s\n",PrSq(from));
+printf("Algebraic to:%s\n",PrSq(to));
+printf("Algebraic move:%s\n",PrMove(move));
 
 
 

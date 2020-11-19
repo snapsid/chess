@@ -160,8 +160,8 @@ int pieceslist[13][10];
 0000 1000 0000 0000 0000 0000 0000 -> Castle
 */
 
-#define FROMSW(m) ((m) & 0x3F)
-#define TOSQ(m) (((m)>>7) & 0x3F)
+#define FROMSQ(m) ((m) & 0x3F)
+#define TOSQ(m) (((m)>>7) & 0x7F)
 #define CAPTURED(m) (((m)>>14) & 0xF)
 #define PROMOTED(m) (((m)>>20) & 0xF)
 
@@ -276,5 +276,11 @@ extern int CheckBoard(const Board_struct *pos);
 extern int SqAttacked(const int sq, const int side, const Board_struct *pos);
 // attack.c
 
+
+
+
+extern char *PrSq(const int sq);
+extern char *PrMove(const int move);
+// io.c
 
 #endif
