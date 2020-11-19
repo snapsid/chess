@@ -31,6 +31,10 @@ typedef unsigned long long U64;
 #define BOARD_NUMBER 120
 // array for square board
 
+
+#define MAXPOSITIONMOVES 256
+
+
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/pppppppp/RNBQKBNR w KQkq - 0 1"
 
 
@@ -79,6 +83,16 @@ typedef struct{
 }Move_struct;
 // for makin a move
 
+
+
+typedef struct{
+
+
+  Move_struct moves[MAXPOSITIONMOVES];
+  int count;
+}MoveList_struct;
+
+// list of moves
 
 
 
@@ -160,13 +174,13 @@ int pieceslist[13][10];
 0000 1000 0000 0000 0000 0000 0000 -> Castle
 */
 
-#define FROMSQ(m) ((m) & 0x3F)
+#define FROMSQ(m) ((m) & 0x7F)
 #define TOSQ(m) (((m)>>7) & 0x7F)
 #define CAPTURED(m) (((m)>>14) & 0xF)
 #define PROMOTED(m) (((m)>>20) & 0xF)
 
 
-#define MFLAGEP 0x4000
+#define MFLAGEP 0x40000
 #define MFLAGPS 0x80000
 // pawn start
 #define MFLAGCA 0x1000000
@@ -281,6 +295,11 @@ extern int SqAttacked(const int sq, const int side, const Board_struct *pos);
 
 extern char *PrSq(const int sq);
 extern char *PrMove(const int move);
+extern void PrintMoveList(const MoveList_struct *list);
 // io.c
+
+
+extern void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list);
+// movegeneration.c
 
 #endif
