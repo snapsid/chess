@@ -70,6 +70,18 @@ enum {WKCA =1 , WQCA=2, BKCA=4, BQCA=8};
 
 enum { FALSE, TRUE };
 
+
+typedef struct{
+  int score;
+  int move;
+
+
+}Move_struct;
+// for makin a move
+
+
+
+
 typedef struct{
 
   int move;
@@ -136,6 +148,41 @@ int pieceslist[13][10];
 // piece list
 
 } Board_struct;
+
+
+
+/*
+0000 0000 0000 0000 0000 0111 1111 -> From
+0000 0000 0000 0011 1111 1000 0000 -> To
+0000 0000 0011 1100 0000 0000 0000 -> Captured
+0000 0000 0100 0000 0000 0000 0000 -> EP
+0000 0111 1000 0000 0000 0000 0000 -> Promoted Piece
+0000 1000 0000 0000 0000 0000 0000 -> Castle
+*/
+
+#define FROMSW(m) ((m) & 0x3F)
+#define TOSQ(m) (((m)>>7) & 0x3F)
+#define CAPTURED(m) (((m)>>14) & 0xF)
+#define PROMOTED(m) (((m)>>20) & 0xF)
+
+
+#define MFLAGEP 0x4000
+#define MFLAGPS 0x80000
+// pawn start
+#define MFLAGCA 0x1000000
+// castel
+
+#define MFLAGCAP 0x7C000
+#define MFLAGPROM 0xF00000
+
+
+
+// we need 7 bits to represent a move
+// game move
+
+
+
+
 
 
 #define FR2SQ(c,r) ( (21 + (c) ) + ( (r) * 10 ) )
