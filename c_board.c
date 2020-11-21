@@ -283,6 +283,8 @@ void resetBoard(Board_struct *pos)
     pos->minorPieces[i]=0;
     pos->pawns[i]=0ULL;
 
+		pos->material[i]=0;
+
   }
 
   for(i = 0; i < 13; ++i)

@@ -7,6 +7,28 @@
 
 
 
+// for sliding
+int LoopSlidePce[8] = {
+ wB, wR, wQ, 0, bB, bR, bQ, 0
+};
+// keep moving in loop until it comes 0 for white and black both
+
+
+int LoopSlideIndex[2] = { 0, 4 };
+// which side to move for that (white=0... black=4)
+
+
+int LoopNonSlidePce[6] = {
+ wN, wK, 0, bN, bK, 0
+};
+int LoopNonSlideIndex[2] = { 0, 3 };
+// same logic as slide pices
+
+
+
+
+
+// for move generation
 void AddQuiteMove(const Board_struct *pos, int move, MoveList_struct *list)
 {
   list->moves[list->count].move=move;
@@ -106,6 +128,11 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 	int pceNum = 0;
 
 
+  int dir = 0;
+	int index = 0;
+	int pceIndex = 0;
+
+
   if(side == WHITE) {
 		for(pceNum = 0; pceNum < pos->picesNumber[wP]; ++pceNum) {
 			sq = pos->pieceslist[wP][pceNum];
@@ -170,6 +197,30 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
       // for enpassant
     }
 
+	}
+
+
+
+
+  // Loop for slide pieces
+	pceIndex = LoopSlideIndex[side];
+	pce = LoopSlidePce[pceIndex++];
+	while( pce != 0) {
+
+		printf("sliders pceIndex:%d pce:%d\n",pceIndex,pce);
+
+		pce = LoopSlidePce[pceIndex++];
+	}
+
+	// Loop for non slide
+	pceIndex = LoopNonSlideIndex[side];
+	pce = LoopNonSlidePce[pceIndex++];
+
+	while( pce != 0) {
+
+		printf("non sliders pceIndex:%d pce:%d\n",pceIndex,pce);
+
+		pce = LoopNonSlidePce[pceIndex++];
 	}
 
 }

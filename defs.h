@@ -259,6 +259,8 @@ extern int PieceISRookQueen[13];
 extern int PieceISBishopQueen[13];
 // to return which type of piece
 
+extern int PieceSlides[13];
+
 // globals
 
 
