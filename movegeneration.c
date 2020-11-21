@@ -56,6 +56,43 @@ void AddWhitePawnMove( const Board_struct *pos, const int from, const int to, Mo
 }
 
 
+
+// same for black
+// direction ki vjah se row2 hogi air white ki jagh black
+
+void AddBlackPawnCapMove( const Board_struct *pos, const int from, const int to, const int cap, MoveList_struct *list ) {
+	if(RowBoard[from] == ROW_2) {
+		AddCaptureMove(pos, MOVE(from,to,cap,bQ,0), list);
+		AddCaptureMove(pos, MOVE(from,to,cap,bR,0), list);
+		AddCaptureMove(pos, MOVE(from,to,cap,bB,0), list);
+		AddCaptureMove(pos, MOVE(from,to,cap,bN,0), list);
+	} else {
+		AddCaptureMove(pos, MOVE(from,to,cap,EMPTY,0), list);
+	}
+}
+// jab pawn top par pauch jayega tab zinda karne ke liye
+
+
+
+void AddBlackPawnMove( const Board_struct *pos, const int from, const int to, MoveList_struct *list ) {
+	if(RowBoard[from] == ROW_2) {
+		AddQuiteMove(pos, MOVE(from,to,EMPTY,bQ,0), list);
+		AddQuiteMove(pos, MOVE(from,to,EMPTY,bR,0), list);
+		AddQuiteMove(pos, MOVE(from,to,EMPTY,bB,0), list);
+		AddQuiteMove(pos, MOVE(from,to,EMPTY,bN,0), list);
+	} else {
+		AddQuiteMove(pos, MOVE(from,to,EMPTY,EMPTY,0), list);
+	}
+}
+
+
+
+
+
+
+
+
+
 void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 {
   list->count=0;
@@ -102,6 +139,36 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 
 		}
 	} else {
+    // for black
+
+    // same as white only change color
+    for(pceNum = 0; pceNum < pos->picesNumber[bP]; ++pceNum) {
+			sq = pos->pieceslist[bP][pceNum];
+
+      // change direction from + to - bcoz black is in opp. direction
+      if(pos->pices[sq-10] == EMPTY) {
+				AddBlackPawnMove(pos, sq, sq-10, list);
+				if(RowBoard[sq] == ROW_7 && pos->pices[sq-20] == EMPTY) {
+					AddQuiteMove(pos, MOVE(sq,(sq-20),EMPTY,EMPTY,MFLAGPS),list);
+				}
+			}
+
+      if(!SQOFFBOARD(sq-9) && PieceColour[pos->pices[sq-9]] == WHITE) {
+				AddBlackPawnCapMove(pos, sq, sq-9, pos->pices[sq - 9], list);
+			}
+			if(!SQOFFBOARD(sq - 11) && PieceColour[pos->pices[sq - 11]] == WHITE) {
+				AddBlackPawnCapMove(pos, sq, sq-11, pos->pices[sq - 11], list);
+			}
+
+
+      if(sq-9 == pos->enPas) {
+				AddCaptureMove(pos, MOVE(sq,sq-9,EMPTY,EMPTY,MFLAGEP), list);
+			}
+			if(sq-11 == pos->enPas) {
+				AddCaptureMove(pos, MOVE(sq,sq-11,EMPTY,EMPTY,MFLAGEP), list);
+			}
+      // for enpassant
+    }
 
 	}
 
