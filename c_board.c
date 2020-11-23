@@ -277,7 +277,7 @@ void resetBoard(Board_struct *pos)
     pos->pices[SQ120(i)]= EMPTY;
   }
 
-  for(i=0; i<3; ++i){
+  for(i=0; i<2; ++i){
     pos->bigPieces[i]=0;
     pos->majorPieces[i]=0;
     pos->minorPieces[i]=0;
@@ -285,6 +285,10 @@ void resetBoard(Board_struct *pos)
 
 		pos->material[i]=0;
 
+  }
+
+	for(i=0; i<3; ++i){
+    pos->pawns[i]=0ULL;
   }
 
   for(i = 0; i < 13; ++i)
