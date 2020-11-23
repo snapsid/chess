@@ -224,7 +224,11 @@ int main()
 
 	#define KNIGHTSKINGS "5k2/1n6/4n3/6N1/8/3N4/8/5K2 w - - 0 1"
 
-	parse_FEN(KNIGHTSKINGS,board);
+	#define ROOKS "6k1/8/5r2/8/1nR5/5N2/8/6K1 b - - 0 1"
+	#define QUEENS "6k1/8/4nq2/8/1nQ5/5N2/1N6/6K1 b - - 0 1 "
+	#define BISHOPS "6k1/1b6/4n3/8/1n4B1/1B3N2/1N6/2b3K1 b - - 0 1 "
+
+	parse_FEN(QUEENS,board);
 	PrintingBoard(board);
 
 	MoveList_struct list[1];

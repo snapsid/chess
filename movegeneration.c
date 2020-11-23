@@ -227,6 +227,31 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 
 		printf("sliders pceIndex:%d pce:%d\n",pceIndex,pce);
 
+
+    for(pceNum = 0; pceNum < pos->picesNumber[pce]; ++pceNum) {
+			sq = pos->pieceslist[pce][pceNum];
+
+			printf("Piece:%c on %s\n",PieceCharacter[pce],PrSq(sq));
+
+			for(index = 0; index < NumDir[pce]; ++index) {
+				dir = PceDir[pce][index];
+				t_sq = sq + dir;
+
+				while(!SQOFFBOARD(t_sq)) {
+					// BLACK ^ 1 == WHITE       WHITE ^ 1 == BLACK
+					if(pos->pices[t_sq] != EMPTY) {
+						if( PieceColour[pos->pices[t_sq]] == side ^ 1) {
+							printf("\t\tCapture on %s\n",PrSq(t_sq));
+						}
+						break;
+					}
+					printf("\t\tNormal on %s\n",PrSq(t_sq));
+					t_sq += dir;
+				}
+			}
+		}
+
+
 		pce = LoopSlidePce[pceIndex++];
 	}
 
