@@ -181,13 +181,15 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 				AddCaptureMove(pos, MOVE(sq,sq + 11,EMPTY,EMPTY,MFLAGEP), list);
 			}
       // for enpassant
+    }
 
 
 
       if(pos->castlingPermission & WKCA) {
   			if(pos->pices[F1] == EMPTY && pos->pices[G1] == EMPTY) {
   				if(!SqAttacked(E1,BLACK,pos) && !SqAttacked(F1,BLACK,pos) ) {
-  					printf("WKCA MoveGen\n");
+  					// printf("WKCA MoveGen\n");
+             AddQuiteMove(pos, MOVE(E1, G1, EMPTY, EMPTY, MFLAGCA), list);
   				}
   			}
   		}
@@ -195,10 +197,13 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
   		if(pos->castlingPermission & WQCA) {
   			if(pos->pices[D1] == EMPTY && pos->pices[C1] == EMPTY && pos->pices[B1] == EMPTY) {
   				if(!SqAttacked(E1,BLACK,pos) && !SqAttacked(D1,BLACK,pos) ) {
-  					printf("WQCA MoveGen\n");
+  					// printf("WQCA MoveGen\n");
+
+            AddQuiteMove(pos, MOVE(E1, C1, EMPTY, EMPTY, MFLAGCA), list);
+
   				}
   			}
-  		}
+
       // for casteling
 
 		}
@@ -233,13 +238,14 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 			}
       // for enpassant
 
-
+    }
 
 
       if(pos->castlingPermission &  BKCA) {
   			if(pos->pices[F8] == EMPTY && pos->pices[G8] == EMPTY) {
   				if(!SqAttacked(E8,WHITE,pos) && !SqAttacked(F8,WHITE,pos) ) {
-  					printf("BKCA MoveGen\n");
+  					// printf("BKCA MoveGen\n");
+             AddQuiteMove(pos, MOVE(E8, G8, EMPTY, EMPTY, MFLAGCA), list);
   				}
   			}
   		}
@@ -247,7 +253,8 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
   		if(pos->castlingPermission &  BQCA) {
   			if(pos->pices[D8] == EMPTY && pos->pices[C8] == EMPTY && pos->pices[B8] == EMPTY) {
   				if(!SqAttacked(E8,WHITE,pos) && !SqAttacked(D8,WHITE,pos) ) {
-  					printf("BQCA MoveGen\n");
+  					// printf("BQCA MoveGen\n");
+            AddQuiteMove(pos, MOVE(E8, C8, EMPTY, EMPTY, MFLAGCA), list);
   				}
   			}
   		}
@@ -259,7 +266,7 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 
     }
 
-	}
+
 
 
 
@@ -285,11 +292,14 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 					// BLACK ^ 1 == WHITE       WHITE ^ 1 == BLACK
 					if(pos->pices[t_sq] != EMPTY) {
 						if( PieceColour[pos->pices[t_sq]] == side ^ 1) {
-							printf("\t\tCapture on %s\n",PrSq(t_sq));
+
+              AddCaptureMove(pos, MOVE(sq, t_sq, pos->pices[t_sq], EMPTY, 0), list);
+              // printf("\t\tCapture on %s\n",PrSq(t_sq));
 						}
 						break;
 					}
-					printf("\t\tNormal on %s\n",PrSq(t_sq));
+          AddQuiteMove(pos, MOVE(sq, t_sq, EMPTY, EMPTY, 0), list);
+					// printf("\t\tNormal on %s\n",PrSq(t_sq));
 					t_sq += dir;
 				}
 			}
@@ -323,11 +333,14 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 				// BLACK ^ 1 == WHITE       WHITE ^ 1 == BLACK
 				if(pos->pices[t_sq] != EMPTY) {
 					if( PieceColour[pos->pices[t_sq]] == side ^ 1) {
-						printf("\t\tCapture on %s\n",PrSq(t_sq));
+
+            AddCaptureMove(pos, MOVE(sq, t_sq, pos->pices[t_sq], EMPTY, 0), list);
+            // printf("\t\tCapture on %s\n",PrSq(t_sq));
 					}
 					continue;
 				}
-				printf("\t\tNormal on %s\n",PrSq(t_sq));
+				// printf("\t\tNormal on %s\n",PrSq(t_sq));
+        AddQuiteMove(pos, MOVE(sq, t_sq, EMPTY, EMPTY, 0), list);
 			}
 		}
 

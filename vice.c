@@ -230,10 +230,11 @@ int main()
 
 	#define CASTLE1 "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1"
 	#define CASTLE2 "3rk2r/8/8/8/8/8/6p1/R3K2R b KQk - 0 1"
+	#define CASTLE3 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 
 
 
-	parse_FEN(CASTLE1,board);
+	parse_FEN(CASTLE3,board);
 	PrintingBoard(board);
 
 	MoveList_struct list[1];
