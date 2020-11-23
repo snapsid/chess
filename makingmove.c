@@ -5,7 +5,7 @@
 
 #define HASH_PCE(pce,sq) (pos->postionKey ^= (PieceKeys[(pce)][(sq)]))
 #define HASH_CA (pos->postionKey ^= (CastleKeys[(pos->castlingPermission)]))
-#define HASH_SIDE (pos->postionKey ^= (SideKey))
+#define HASH_SIDE (pos->postionKey ^= (SideKeys))
 #define HASH_EP (pos->postionKey ^= (PieceKeys[EMPTY][(pos->enPas)]))
 
 const int CastlePerm[120] = {
@@ -152,4 +152,186 @@ static void MovePiece(const int from, const int to, Board_struct *pos) {
 		}
 	}
 	ASSERT(t_PieceNum);
+}
+
+
+
+
+int MakeMove(Board_struct *pos, int move) {
+
+
+
+	int from = FROMSQ(move);
+    int to = TOSQ(move);
+    int side = pos->side;
+
+
+
+	pos->history[pos->ply1].postionKey = pos->postionKey;
+
+	if(move & MFLAGEP) {
+        if(side == WHITE) {
+            ClearPiece(to-10,pos);
+        } else {
+            ClearPiece(to+10,pos);
+        }
+        // enpassant capture
+    } else if (move & MFLAGCA) {
+        switch(to) {
+            case C1:
+                MovePiece(A1, D1, pos);
+			break;
+            case C8:
+                MovePiece(A8, D8, pos);
+			break;
+            case G1:
+                MovePiece(H1, F1, pos);
+			break;
+            case G8:
+                MovePiece(H8, F8, pos);
+			break;
+            default:  break;
+        }
+        // if castling
+    }
+
+	if(pos->enPas != NO_SQ) HASH_EP;
+    HASH_CA;
+    // hash enpassand and castling
+
+
+	pos->history[pos->ply1].move = move;
+    pos->history[pos->ply1].fiftyMove = pos->fiftyMove;
+    pos->history[pos->ply1].enPas = pos->enPas;
+    pos->history[pos->ply1].castlingPermission = pos->castlingPermission;
+
+    pos->castlingPermission &= CastlePerm[from];
+    pos->castlingPermission &= CastlePerm[to];
+    pos->enPas = NO_SQ;
+
+	HASH_CA;
+
+	int captured = CAPTURED(move);
+    pos->fiftyMove++;
+
+	if(captured != EMPTY) {
+
+        ClearPiece(to, pos);
+        pos->fiftyMove = 0;
+    }
+
+	pos->ply1++;
+	pos->ply++;
+// to increment total and half move
+
+	if(PieceISPawn[pos->pices[from]]) {
+        pos->fiftyMove = 0;
+        if(move & MFLAGPS) {
+          // if pawn start move
+            if(side==WHITE) {
+                pos->enPas=from+10;
+
+            } else {
+                pos->enPas=from-10;
+
+            }
+            HASH_EP;
+        }
+    }
+
+	MovePiece(from, to, pos);
+// moving piece
+
+	int prPce = PROMOTED(move);
+    if(prPce != EMPTY)   {
+
+        ClearPiece(to, pos);
+        AddPiece(to, pos, prPce);
+    }
+
+	if(PieceISKing[pos->pices[to]]) {
+        pos->kingSquare[pos->side] = to;
+    }
+
+	pos->side ^= 1;
+    HASH_SIDE;
+
+    // ASSERT(CheckBoard(pos));
+
+
+	if(SqAttacked(pos->kingSquare[side],pos->side,pos))  {
+        TakeMove(pos);
+        return FALSE;
+    }
+    // if check
+
+	return TRUE;
+
+}
+
+
+
+void TakeMove(Board_struct *pos) {
+
+// for undo
+
+
+	pos->ply1--;
+    pos->ply--;
+
+    int move = pos->history[pos->ply1].move;
+    int from = FROMSQ(move);
+    int to = TOSQ(move);
+
+
+
+	if(pos->enPas != NO_SQ) HASH_EP;
+    HASH_CA;
+
+    pos->castlingPermission = pos->history[pos->ply1].castlingPermission;
+    pos->fiftyMove = pos->history[pos->ply1].fiftyMove;
+    pos->enPas = pos->history[pos->ply1].enPas;
+
+    if(pos->enPas != NO_SQ) HASH_EP;
+    HASH_CA;
+
+    pos->side ^= 1;
+    HASH_SIDE;
+
+	if(MFLAGEP & move) {
+        if(pos->side == WHITE) {
+            AddPiece(to-10, pos, bP);
+        } else {
+            AddPiece(to+10, pos, wP);
+        }
+    } else if(MFLAGCA & move) {
+        switch(to) {
+            case C1: MovePiece(D1, A1, pos); break;
+            case C8: MovePiece(D8, A8, pos); break;
+            case G1: MovePiece(F1, H1, pos); break;
+            case G8: MovePiece(F8, H8, pos); break;
+            default:  break;
+        }
+    }
+
+	MovePiece(to, from, pos);
+
+	if(PieceISKing[pos->pices[from]]) {
+        pos->kingSquare[pos->side] = from;
+    }
+
+	int captured = CAPTURED(move);
+    if(captured != EMPTY) {
+
+        AddPiece(to, pos, captured);
+    }
+
+	if(PROMOTED(move) != EMPTY)   {
+
+        ClearPiece(from, pos);
+        AddPiece(from, pos, (PieceColour[PROMOTED(move)] == WHITE ? wP : bP));
+    }
+
+    ASSERT(CheckBoard(pos));
+
 }

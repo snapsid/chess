@@ -244,6 +244,8 @@ extern int PieceMinor[13];
 extern int PieceValue[13];
 extern int PieceColour[13];
 
+extern int PieceISPawn[13];
+
 // printing board characters
 
 
@@ -303,5 +305,13 @@ extern void PrintMoveList(const MoveList_struct *list);
 
 extern void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list);
 // movegeneration.c
+
+
+
+extern void TakeMove(Board_struct *pos);
+extern int MakeMove(Board_struct *pos, int move);
+// makingmove.c
+
+
 
 #endif
