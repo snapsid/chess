@@ -47,22 +47,14 @@ int NumDir[13] = {
 
 
 // for move generation
-void AddQuiteMove(const Board_struct *pos, int move, MoveList_struct *list)
+static void AddQuiteMove(const Board_struct *pos, int move, MoveList_struct *list)
 {
   list->moves[list->count].move=move;
   list->moves[list->count].score=0;
   list->count++;
 }
 
-void AddCaptureMove(const Board_struct *pos, int move, MoveList_struct *list)
-{
-  list->moves[list->count].move=move;
-  list->moves[list->count].score=0;
-  list->count++;
-}
-
-
-void AddEnPasMove(const Board_struct *pos, int move, MoveList_struct *list)
+static void AddCaptureMove(const Board_struct *pos, int move, MoveList_struct *list)
 {
   list->moves[list->count].move=move;
   list->moves[list->count].score=0;
@@ -70,7 +62,15 @@ void AddEnPasMove(const Board_struct *pos, int move, MoveList_struct *list)
 }
 
 
-void AddWhitePawnCapMove( const Board_struct *pos, const int from, const int to, const int cap, MoveList_struct *list ) {
+static void AddEnPasMove(const Board_struct *pos, int move, MoveList_struct *list)
+{
+  list->moves[list->count].move=move;
+  list->moves[list->count].score=0;
+  list->count++;
+}
+
+
+static void AddWhitePawnCapMove( const Board_struct *pos, const int from, const int to, const int cap, MoveList_struct *list ) {
 	if(RowBoard[from] == ROW_7) {
 		AddCaptureMove(pos, MOVE(from,to,cap,wQ,0), list);
 		AddCaptureMove(pos, MOVE(from,to,cap,wR,0), list);
@@ -84,7 +84,7 @@ void AddWhitePawnCapMove( const Board_struct *pos, const int from, const int to,
 
 
 
-void AddWhitePawnMove( const Board_struct *pos, const int from, const int to, MoveList_struct *list ) {
+static void AddWhitePawnMove( const Board_struct *pos, const int from, const int to, MoveList_struct *list ) {
 	if(RowBoard[from] == ROW_7) {
 		AddQuiteMove(pos, MOVE(from,to,EMPTY,wQ,0), list);
 		AddQuiteMove(pos, MOVE(from,to,EMPTY,wR,0), list);
@@ -100,7 +100,7 @@ void AddWhitePawnMove( const Board_struct *pos, const int from, const int to, Mo
 // same for black
 // direction ki vjah se row2 hogi air white ki jagh black
 
-void AddBlackPawnCapMove( const Board_struct *pos, const int from, const int to, const int cap, MoveList_struct *list ) {
+static void AddBlackPawnCapMove( const Board_struct *pos, const int from, const int to, const int cap, MoveList_struct *list ) {
 	if(RowBoard[from] == ROW_2) {
 		AddCaptureMove(pos, MOVE(from,to,cap,bQ,0), list);
 		AddCaptureMove(pos, MOVE(from,to,cap,bR,0), list);
@@ -114,7 +114,7 @@ void AddBlackPawnCapMove( const Board_struct *pos, const int from, const int to,
 
 
 
-void AddBlackPawnMove( const Board_struct *pos, const int from, const int to, MoveList_struct *list ) {
+static void AddBlackPawnMove( const Board_struct *pos, const int from, const int to, MoveList_struct *list ) {
 	if(RowBoard[from] == ROW_2) {
 		AddQuiteMove(pos, MOVE(from,to,EMPTY,bQ,0), list);
 		AddQuiteMove(pos, MOVE(from,to,EMPTY,bR,0), list);
