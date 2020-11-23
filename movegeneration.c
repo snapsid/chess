@@ -25,7 +25,25 @@ int LoopNonSlideIndex[2] = { 0, 3 };
 // same logic as slide pices
 
 
+int PceDir[13][8] = {
+	{ 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0 },
+	{ -8, -19,	-21, -12, 8, 19, 21, 12 },
+	{ -9, -11, 11, 9, 0, 0, 0, 0 },
+	{ -1, -10,	1, 10, 0, 0, 0, 0 },
+	{ -1, -10,	1, 10, -9, -11, 11, 9 },
+	{ -1, -10,	1, 10, -9, -11, 11, 9 },
+	{ 0, 0, 0, 0, 0, 0, 0 },
+	{ -8, -19,	-21, -12, 8, 19, 21, 12 },
+	{ -9, -11, 11, 9, 0, 0, 0, 0 },
+	{ -1, -10,	1, 10, 0, 0, 0, 0 },
+	{ -1, -10,	1, 10, -9, -11, 11, 9 },
+	{ -1, -10,	1, 10, -9, -11, 11, 9 }
+};
 
+int NumDir[13] = {
+ 0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8
+};
 
 
 // for move generation
@@ -216,9 +234,33 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 	pceIndex = LoopNonSlideIndex[side];
 	pce = LoopNonSlidePce[pceIndex++];
 
-	while( pce != 0) {
+  while( pce != 0) {
 
 		printf("non sliders pceIndex:%d pce:%d\n",pceIndex,pce);
+
+		for(pceNum = 0; pceNum < pos->picesNumber[pce]; ++pceNum) {
+			sq = pos->pieceslist[pce][pceNum];
+
+			printf("Piece:%c on %s\n",PieceCharacter[pce],PrSq(sq));
+
+			for(index = 0; index < NumDir[pce]; ++index) {
+				dir = PceDir[pce][index];
+				t_sq = sq + dir;
+
+				if(SQOFFBOARD(t_sq)) {
+					continue;
+				}
+
+				// BLACK ^ 1 == WHITE       WHITE ^ 1 == BLACK
+				if(pos->pices[t_sq] != EMPTY) {
+					if( PieceColour[pos->pices[t_sq]] == side ^ 1) {
+						printf("\t\tCapture on %s\n",PrSq(t_sq));
+					}
+					continue;
+				}
+				printf("\t\tNormal on %s\n",PrSq(t_sq));
+			}
+		}
 
 		pce = LoopNonSlidePce[pceIndex++];
 	}

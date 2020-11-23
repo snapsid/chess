@@ -221,7 +221,10 @@ int main()
 
 
   #define PAWNMOVES "rnbqkbnr/p1p1p3/3p3p/1p1p4/2P1Pp2/8/PP1P1PpP/RNBQKB1R b KQkq e3 0 1"
-	parse_FEN(PAWNMOVES,board);
+
+	#define KNIGHTSKINGS "5k2/1n6/4n3/6N1/8/3N4/8/5K2 w - - 0 1"
+
+	parse_FEN(KNIGHTSKINGS,board);
 	PrintingBoard(board);
 
 	MoveList_struct list[1];
