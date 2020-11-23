@@ -182,6 +182,25 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 			}
       // for enpassant
 
+
+
+      if(pos->castlingPermission & WKCA) {
+  			if(pos->pices[F1] == EMPTY && pos->pices[G1] == EMPTY) {
+  				if(!SqAttacked(E1,BLACK,pos) && !SqAttacked(F1,BLACK,pos) ) {
+  					printf("WKCA MoveGen\n");
+  				}
+  			}
+  		}
+
+  		if(pos->castlingPermission & WQCA) {
+  			if(pos->pices[D1] == EMPTY && pos->pices[C1] == EMPTY && pos->pices[B1] == EMPTY) {
+  				if(!SqAttacked(E1,BLACK,pos) && !SqAttacked(D1,BLACK,pos) ) {
+  					printf("WQCA MoveGen\n");
+  				}
+  			}
+  		}
+      // for casteling
+
 		}
 	} else {
     // for black
@@ -213,6 +232,31 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 				AddCaptureMove(pos, MOVE(sq,sq-11,EMPTY,EMPTY,MFLAGEP), list);
 			}
       // for enpassant
+
+
+
+
+      if(pos->castlingPermission &  BKCA) {
+  			if(pos->pices[F8] == EMPTY && pos->pices[G8] == EMPTY) {
+  				if(!SqAttacked(E8,WHITE,pos) && !SqAttacked(F8,WHITE,pos) ) {
+  					printf("BKCA MoveGen\n");
+  				}
+  			}
+  		}
+
+  		if(pos->castlingPermission &  BQCA) {
+  			if(pos->pices[D8] == EMPTY && pos->pices[C8] == EMPTY && pos->pices[B8] == EMPTY) {
+  				if(!SqAttacked(E8,WHITE,pos) && !SqAttacked(D8,WHITE,pos) ) {
+  					printf("BQCA MoveGen\n");
+  				}
+  			}
+  		}
+      // for castling
+
+
+
+
+
     }
 
 	}
