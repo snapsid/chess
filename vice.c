@@ -56,7 +56,47 @@ int main()
 	MoveList_struct list[1];
 // #define CASTLE3 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 	parse_FEN(START_FEN, board);
-  PerftTest(3, board);
+  // PerftTest(3, board);
+
+
+  char input[6];
+  int Move = NOMOVE;
+
+  while(TRUE)
+  {
+     PrintingBoard(board);
+     printf("\n---Enter your Move---\n");
+     fgets(input, 6, stdin);
+
+     if(input[0]=='q')
+     {
+       break;
+     }
+
+     else if(input[0]=='t') {
+ 			TakeMove(board);
+ 		}
+
+    else{
+      Move = ParseMove(input, board);
+      if(Move != NOMOVE)
+      {
+			 MakeMove(board,Move);
+      }
+
+      else{
+        printf("Move Not Parsed:%s\n",input);
+      }
+    }
+
+
+
+
+     fflush(stdin);
+  }
+
+
+
 
 	// PrintingBoard(board);
 	// GenerateAllMoves(board, list);

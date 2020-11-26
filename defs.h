@@ -194,6 +194,8 @@ int pieceslist[13][10];
 // we need 7 bits to represent a move
 // game move
 
+#define NOMOVE 0
+
 
 
 
@@ -300,6 +302,7 @@ extern int SqAttacked(const int sq, const int side, const Board_struct *pos);
 extern char *PrSq(const int sq);
 extern char *PrMove(const int move);
 extern void PrintMoveList(const MoveList_struct *list);
+extern int ParseMove(char *ptrChar, Board_struct *pos);
 // io.c
 
 
