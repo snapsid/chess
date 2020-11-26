@@ -9,28 +9,28 @@
 #define FEN11 "8/3q1p2/8/5P2/4Q3/8/8/8 w - - 0 2 "
 
 // to check the attacking position available
-void ShowSqAtBySide(const int side, const Board_struct *pos) {
-
-	int row = 0;
-	int column = 0;
-	int sq = 0;
-
-	printf("\n\nSquares attacked by:%c\n",SideCharacter[side]);
-	for(row = ROW_8; row >= ROW_1; --row) {
-		for(column = COLUMN_A; column <= COLUMN_H; ++column) {
-			sq = FR2SQ(column,row);
-			if(SqAttacked(sq,side,pos)==TRUE) {
-				printf("X");
-			} else {
-				printf("-");
-			}
-
-		}
-		printf("\n");
-	}
-    printf("\n\n");
-
-}
+// void ShowSqAtBySide(const int side, const Board_struct *pos) {
+//
+// 	int row = 0;
+// 	int column = 0;
+// 	int sq = 0;
+//
+// 	printf("\n\nSquares attacked by:%c\n",SideCharacter[side]);
+// 	for(row = ROW_8; row >= ROW_1; --row) {
+// 		for(column = COLUMN_A; column <= COLUMN_H; ++column) {
+// 			sq = FR2SQ(column,row);
+// 			if(SqAttacked(sq,side,pos)==TRUE) {
+// 				printf("X");
+// 			} else {
+// 				printf("-");
+// 			}
+//
+// 		}
+// 		printf("\n");
+// 	}
+//     printf("\n\n");
+//
+// }
 
 
 
@@ -51,6 +51,17 @@ int main()
   printf("\n");
   printf("\n");
   allInit();
+
+	Board_struct board[1];
+	MoveList_struct list[1];
+// #define CASTLE3 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
+	parse_FEN(START_FEN, board);
+  PerftTest(3, board);
+
+	// PrintingBoard(board);
+	// GenerateAllMoves(board, list);
+
+
 
 
 
@@ -159,9 +170,9 @@ int main()
 //   int key =  pieceOne ^ pieceTwo ^ pieceThree ^ pieceFour;
 //   printf("key: %X", key);
 
-  #define FEN1 "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
-
-  Board_struct board[1];
+  // #define FEN1 "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
+	//
+  // Board_struct board[1];
 
   // parse_FEN(START_FEN, board);
   // PrintingBoard(board);
@@ -220,28 +231,56 @@ int main()
 
 
 
-  #define PAWNMOVES "rnbqkbnr/p1p1p3/3p3p/1p1p4/2P1Pp2/8/PP1P1PpP/RNBQKB1R b KQkq e3 0 1"
+ //  #define PAWNMOVES "rnbqkbnr/p1p1p3/3p3p/1p1p4/2P1Pp2/8/PP1P1PpP/RNBQKB1R b KQkq e3 0 1"
+ //
+	// #define KNIGHTSKINGS "5k2/1n6/4n3/6N1/8/3N4/8/5K2 w - - 0 1"
+ //
+	// #define ROOKS "6k1/8/5r2/8/1nR5/5N2/8/6K1 b - - 0 1"
+	// #define QUEENS "6k1/8/4nq2/8/1nQ5/5N2/1N6/6K1 b - - 0 1 "
+	// #define BISHOPS "6k1/1b6/4n3/8/1n4B1/1B3N2/1N6/2b3K1 b - - 0 1 "
+ //
+	// #define CASTLE1 "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1"
+	// #define CASTLE2 "3rk2r/8/8/8/8/8/6p1/R3K2R b KQk - 0 1"
+	// #define CASTLE3 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
+ //
+ //
+ //
+	// parse_FEN(START_FEN,board);
+	// PrintingBoard(board);
+ //
+	// MoveList_struct list[1];
+ //
+	// GenerateAllMoves(board, list);
+ //
+	// PrintMoveList(list);
+ // getchar();
 
-	#define KNIGHTSKINGS "5k2/1n6/4n3/6N1/8/3N4/8/5K2 w - - 0 1"
 
-	#define ROOKS "6k1/8/5r2/8/1nR5/5N2/8/6K1 b - - 0 1"
-	#define QUEENS "6k1/8/4nq2/8/1nQ5/5N2/1N6/6K1 b - - 0 1 "
-	#define BISHOPS "6k1/1b6/4n3/8/1n4B1/1B3N2/1N6/2b3K1 b - - 0 1 "
-
-	#define CASTLE1 "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1"
-	#define CASTLE2 "3rk2r/8/8/8/8/8/6p1/R3K2R b KQk - 0 1"
-	#define CASTLE3 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
-
-
-
-	parse_FEN(CASTLE3,board);
-	PrintingBoard(board);
-
-	MoveList_struct list[1];
-
-	GenerateAllMoves(board, list);
-
-	PrintMoveList(list);
+	// parse_FEN(START_FEN,board);
+	// GenerateAllMoves(board,list);
+	//
+	// int MoveNum = 0;
+	// int move = 0;
+	// //
+	// PrintingBoard(board);
+	//  getchar();
+  //
+	// for(MoveNum = 0; MoveNum < list->count; ++MoveNum) {
+	// 	move = list->moves[MoveNum].move;
+  //
+	// 	if( !MakeMove(board, move) ) {
+	// 		continue;
+	// 	}
+  //
+	// 	printf("\nMADE:%s\n", PrMove(move));
+	// 	PrintingBoard(board);
+  //
+	// 	TakeMove(board);
+	// 	printf("\nTAKEN:%s\n", PrMove(move));
+	// 	PrintingBoard(board);
+  //
+	// 	getchar();
+	// }
 
 
     return 0;

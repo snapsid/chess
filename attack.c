@@ -30,7 +30,7 @@ int SqAttacked(const int sq, const int side, const Board_struct *pos) {
   // for knights
 	for(index = 0; index < 8; ++index) {
 		pce = pos->pices[sq + KnDir[index]];
-		if(IsKn(pce) && PieceColour[pce]==side) {
+		if(pce != OFFBOARD && IsKn(pce) && PieceColour[pce]==side) {
 			return TRUE;
 		}
 	}
@@ -88,7 +88,7 @@ for(index = 0; index < 4; ++index) {
 // for kings
 for(index = 0; index < 8; ++index) {
   pce = pos->pices[sq + KiDir[index]];
-  if(IsKi(pce) && PieceColour[pce]==side) {
+  if(pce != OFFBOARD && IsKi(pce) && PieceColour[pce]==side) {
     return TRUE;
   }
 }

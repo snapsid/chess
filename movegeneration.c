@@ -8,24 +8,24 @@
 
 
 // for sliding
-int LoopSlidePce[8] = {
+const int LoopSlidePce[8] = {
  wB, wR, wQ, 0, bB, bR, bQ, 0
 };
 // keep moving in loop until it comes 0 for white and black both
 
 
-int LoopSlideIndex[2] = { 0, 4 };
+const int LoopSlideIndex[2] = { 0, 4 };
 // which side to move for that (white=0... black=4)
 
 
-int LoopNonSlidePce[6] = {
+const int LoopNonSlidePce[6] = {
  wN, wK, 0, bN, bK, 0
 };
-int LoopNonSlideIndex[2] = { 0, 3 };
+const int LoopNonSlideIndex[2] = { 0, 3 };
 // same logic as slide pices
 
 
-int PceDir[13][8] = {
+const int PceDir[13][8] = {
 	{ 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 0, 0, 0, 0, 0 },
 	{ -8, -19,	-21, -12, 8, 19, 21, 12 },
@@ -41,7 +41,7 @@ int PceDir[13][8] = {
 	{ -1, -10,	1, 10, -9, -11, 11, 9 }
 };
 
-int NumDir[13] = {
+const int NumDir[13] = {
  0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8
 };
 
@@ -174,12 +174,15 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
       // to attack 9 and 11 kyuki pawn attack vertically
       // it will also check color must be black
 
+      if(pos->enPas != NO_SQ)
+      {
 			if(sq + 9 == pos->enPas) {
-				AddCaptureMove(pos, MOVE(sq,sq + 9,EMPTY,EMPTY,MFLAGEP), list);
+				AddEnPasMove(pos, MOVE(sq,sq + 9,EMPTY,EMPTY,MFLAGEP), list);
 			}
 			if(sq + 11 == pos->enPas) {
-				AddCaptureMove(pos, MOVE(sq,sq + 11,EMPTY,EMPTY,MFLAGEP), list);
+				AddEnPasMove(pos, MOVE(sq,sq + 11,EMPTY,EMPTY,MFLAGEP), list);
 			}
+    }
       // for enpassant
     }
 
@@ -229,13 +232,15 @@ void GenerateAllMoves(const Board_struct *pos, MoveList_struct *list)
 				AddBlackPawnCapMove(pos, sq, sq-11, pos->pices[sq - 11], list);
 			}
 
-
+      if(pos->enPas != NO_SQ)
+      {
       if(sq-9 == pos->enPas) {
-				AddCaptureMove(pos, MOVE(sq,sq-9,EMPTY,EMPTY,MFLAGEP), list);
+				AddEnPasMove(pos, MOVE(sq,sq-9,EMPTY,EMPTY,MFLAGEP), list);
 			}
 			if(sq-11 == pos->enPas) {
-				AddCaptureMove(pos, MOVE(sq,sq-11,EMPTY,EMPTY,MFLAGEP), list);
+				AddEnPasMove(pos, MOVE(sq,sq-11,EMPTY,EMPTY,MFLAGEP), list);
 			}
+      }
       // for enpassant
 
     }

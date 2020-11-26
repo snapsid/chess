@@ -313,5 +313,7 @@ extern int MakeMove(Board_struct *pos, int move);
 // makingmove.c
 
 
+extern void PerftTest(int depth, Board_struct *pos);
+// perftest.c
 
 #endif

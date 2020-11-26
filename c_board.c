@@ -23,7 +23,7 @@ int CheckBoard(const Board_struct *pos) {
 	for(t_piece = wP; t_piece <= bK; ++t_piece) {
 		for(t_pce_num = 0; t_pce_num < pos->picesNumber[t_piece]; ++t_pce_num) {
 			sq120 = pos->pieceslist[t_piece][t_pce_num];
-			ASSERT(pos->pices[sq120]==t_piece);
+			// ASSERT(pos->pices[sq120]==t_piece);
 		}
 	}
 
